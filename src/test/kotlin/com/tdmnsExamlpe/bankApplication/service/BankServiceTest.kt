@@ -1,21 +1,21 @@
-package com.tdmnsExamlpe.bankApplication.service
+package com.tdmnsExamlpe.bookApplication.service
 
-import com.tdmnsExamlpe.bankApplication.datasource.BookDataSource
+import com.tdmnsExamlpe.bookApplication.datasource.BookDataSource
 import io.mockk.mockk
 import io.mockk.verify
 import org.junit.jupiter.api.Test
 
-class BankServiceTest {
+class BookServiceTest {
 
     private val dataSource: BookDataSource = mockk(relaxed = true)
-    private val bankService = BankService(dataSource)
+    private val bookService = BookService(dataSource)
 
     @Test
-    fun `should call its data source to retrieve banks`() {
+    fun `should call its data source to retrieve books`() {
         // when
-        bankService.getBanks()
+        bookService.getBooks()
 
         // then
-        verify(exactly = 1) { dataSource.retrieveBanks() }
-    } 
+        verify(exactly = 1) { dataSource.retrieveBooks() }
+    }
 }
