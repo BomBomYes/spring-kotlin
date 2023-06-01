@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.tdmnsExamlpe.bankApplication.datasource.mock.MockBankDataSourceTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2023-01-07T14:59:26" hostname="Mac-Studio-Oleg" time="0.026">
+  <properties/>
+  <testcase name="should provide a collection of banks()" classname="com.tdmnsExamlpe.bankApplication.datasource.mock.MockBankDataSourceTest" time="0.022"/>
+  <testcase name="should provide some mock data()" classname="com.tdmnsExamlpe.bankApplication.datasource.mock.MockBankDataSourceTest" time="0.004"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
