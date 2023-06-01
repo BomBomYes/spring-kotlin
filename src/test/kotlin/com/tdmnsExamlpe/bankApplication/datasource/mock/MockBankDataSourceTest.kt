@@ -1,29 +1,29 @@
-package com.tdmnsExamlpe.bankApplication.datasource.mock
+package com.tdmnsExamlpe.bookApplication.datasource.mock
 
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-class MockBankDataSourceTest {
+class MockBookDataSourceTest {
 
-    private val mockDataSource = MockBankDataSource()
+    private val mockDataSource = MockBookDataSource()
 
     @Test
-    fun `should provide a collection of banks`() {
+    fun `should provide a collection of books`() {
         // when
-        val banks = mockDataSource.retrieveBanks()
+        val books = mockDataSource.retrieveBooks()
 
         // then
-        assertThat(banks.size).isGreaterThanOrEqualTo(3)
+        assertThat(books.size).isGreaterThanOrEqualTo(3)
     }
-    
+
     @Test
     fun `should provide some mock data`() {
         // when
-        val banks = mockDataSource.retrieveBanks()
+        val books = mockDataSource.retrieveBooks()
 
         // then
-        assertThat(banks).allMatch { it.accountNumber.isNotBlank() }
-        assertThat(banks).anyMatch { it.trust != 0.0 }
-        assertThat(banks).anyMatch { it.transactionFee != 0 }
-    } 
+        assertThat(books).allMatch { it.title.isNotBlank() }
+        assertThat(books).allMatch { it.author.isNotBlank() }
+        assertThat(books).allMatch { it.review.isNotBlank() }
+    }
 }

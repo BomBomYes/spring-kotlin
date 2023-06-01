@@ -1,19 +1,19 @@
-package com.tdmnsExamlpe.bankApplication.service
+package com.tdmnsExamlpe.bookApplication.service
 
-import com.tdmnsExamlpe.bankApplication.datasource.BankDataSource
-import com.tdmnsExamlpe.bankApplication.model.Bank
+import com.tdmnsExamlpe.bankApplication.model.Book
+import com.tdmnsExamlpe.bookApplication.datasource.BookDataSource
 import org.springframework.stereotype.Service
 
 @Service
-class BankService(private val dataSource: BankDataSource) {
+class BookService(private val dataSource: BookDataSource) {
 
-    fun getBanks(): Collection<Bank> = dataSource.retrieveBanks()
+    fun getBooks(): Collection<Book> = dataSource.retrieveBooks()
 
-    fun getBank(accountNumber: String) = dataSource.retrieveBank(accountNumber)
+    fun getBook(id: Int) = dataSource.retrieveBook(id)
 
-    fun addBank(bank: Bank): Bank = dataSource.createBank(bank)
+    fun addBook(book: Book): Book = dataSource.createBook(book)
 
-    fun updateBank(bank: Bank): Bank = dataSource.updateBank(bank)
+    fun updateBook(book: Book): Book = dataSource.updateBook(book)
 
-    fun deleteBank(accountNumber: String): Unit = dataSource.deleteBank(accountNumber)
+    fun deleteBook(id: Int): Unit = dataSource.deleteBook(id)
 }

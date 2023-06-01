@@ -1,15 +1,13 @@
 package com.tdmnsExamlpe.bankApplication.service
 
-import com.tdmnsExamlpe.bankApplication.datasource.BankDataSource
-import io.mockk.every
+import com.tdmnsExamlpe.bankApplication.datasource.BookDataSource
 import io.mockk.mockk
 import io.mockk.verify
-import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 
 class BankServiceTest {
 
-    private val dataSource: BankDataSource = mockk(relaxed = true)
+    private val dataSource: BookDataSource = mockk(relaxed = true)
     private val bankService = BankService(dataSource)
 
     @Test

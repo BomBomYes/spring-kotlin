@@ -1,7 +1,7 @@
-package com.tdmnsExamlpe.bankApplication.controller
+package com.tdmnsExamlpe.bookApplication.controller
 
-import com.tdmnsExamlpe.bankApplication.model.Bank
-import com.tdmnsExamlpe.bankApplication.service.BankService
+import com.tdmnsExamlpe.bankApplication.model.Book
+import com.tdmnsExamlpe.bookApplication.service.BookService
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.DeleteMapping
@@ -17,8 +17,8 @@ import org.springframework.web.bind.annotation.RestController
 import java.util.NoSuchElementException
 
 @RestController
-@RequestMapping("/api/banks")
-class BankController(private val service: BankService) {
+@RequestMapping("/api/books")
+class BookController(private val service: BookService) {
 
     @ExceptionHandler(NoSuchElementException::class)
     fun handleNotFound(e: NoSuchElementException): ResponseEntity<String> = ResponseEntity(e.message, HttpStatus.NOT_FOUND)
@@ -27,19 +27,19 @@ class BankController(private val service: BankService) {
     fun handleBadRequest(e: IllegalArgumentException): ResponseEntity<String> = ResponseEntity(e.message, HttpStatus.BAD_REQUEST)
 
     @GetMapping
-    fun getBanks(): Collection<Bank> = service.getBanks()
+    fun getBooks(): Collection<Book> = service.getBooks()
 
-    @GetMapping("/{accountNumber}")
-    fun getBank(@PathVariable accountNumber: String): Bank = service.getBank(accountNumber)
+    @GetMapping("/{id}")
+    fun getBook(@PathVariable id: Int): Book = service.getBook(id)
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    fun addBank(@RequestBody bank: Bank): Bank = service.addBank(bank)
+    fun addBook(@RequestBody book: Book): Book = service.addBook(book)
 
     @PatchMapping
-    fun updateBank(@RequestBody bank: Bank): Bank = service.updateBank(bank)
+    fun updateBook(@RequestBody book: Book): Book = service.updateBook(book)
 
-    @DeleteMapping("/{accountNumber}")
+    @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    fun deleteBank(@PathVariable accountNumber: String): Unit = service.deleteBank(accountNumber)
+    fun deleteBook(@PathVariable id: Int): Unit = service.deleteBook(id)
 }
