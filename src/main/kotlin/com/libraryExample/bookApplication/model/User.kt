@@ -1,6 +1,7 @@
 package com.libraryExample.bookApplication.model
 
 import jakarta.persistence.*
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 
 @Entity
 class User {
@@ -9,11 +10,21 @@ class User {
     var id: Int = 0
 
     @Column
-    var name: String = ""
+    var name = ""
 
     @Column(unique = true)
-    var email: String = ""
+    var email = ""
 
     @Column
-    var password: String = ""
+    var password = ""
+        get() = field
+        set(value) {
+            val passwordEncoder = BCryptPasswordEncoder()
+            field = passwordEncoder.encode(value)
+        }
+
+    fun comparePassword(password: String): Boolean {
+        return BCryptPasswordEncoder().matches(password, this.password)
+    }
 }
+
