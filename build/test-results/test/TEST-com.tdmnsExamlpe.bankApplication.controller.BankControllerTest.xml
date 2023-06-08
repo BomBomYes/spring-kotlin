@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.tdmnsExamlpe.bankApplication.controller.BankControllerTest" tests="0" skipped="0" failures="0" errors="0" timestamp="1970-01-01T00:00:00" hostname="Mac-Studio-Oleg" time="0.0">
+  <properties/>
+  <system-out><![CDATA[2023-01-07T21:59:26.415+07:00  INFO 8970 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.tdmnsExamlpe.bankApplication.controller.BankControllerTest]: BankControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2023-01-07T21:59:26.427+07:00  INFO 8970 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.tdmnsExamlpe.bankApplication.BankApplication for test class com.tdmnsExamlpe.bankApplication.controller.BankControllerTest
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
