@@ -11,16 +11,16 @@ import io.jsonwebtoken.security.Keys
 import jakarta.servlet.http.Cookie
 import jakarta.servlet.http.HttpServletResponse
 import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.ui.Model
+import org.springframework.web.bind.annotation.*
 import java.util.*
 import javax.crypto.SecretKey
 
 @RestController
 @RequestMapping("api")
 class AuthController(private val service: UserService) {
+
+
     @PostMapping("register")
     fun register(@RequestBody body: RegisterDTO): ResponseEntity<User> {
         val user = User()
@@ -33,7 +33,8 @@ class AuthController(private val service: UserService) {
 
     @PostMapping("login")
     fun login(@RequestBody body: LoginDTO, response: HttpServletResponse): ResponseEntity<Any> {
-        val user = this.service.findByEmail(body.email) ?: return ResponseEntity.badRequest().body(Message("User not found"))
+        val user =
+            this.service.findByEmail(body.email) ?: return ResponseEntity.badRequest().body(Message("User not found"))
 
         if (!user.comparePassword(body.password)) {
             return ResponseEntity.badRequest().body(Message("Invalid password"))
@@ -43,9 +44,7 @@ class AuthController(private val service: UserService) {
 
         val key: SecretKey = Keys.secretKeyFor(SignatureAlgorithm.HS256)
 
-        val jwt = Jwts.builder()
-            .setIssuer(issuer)
-            .setExpiration(Date(System.currentTimeMillis() + 60 * 60 * 24 * 1000))
+        val jwt = Jwts.builder().setIssuer(issuer).setExpiration(Date(System.currentTimeMillis() + 60 * 60 * 24 * 1000))
             .signWith(key).compact()
 
         val cookie = Cookie("jwt", jwt)

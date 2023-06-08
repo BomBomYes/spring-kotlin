@@ -1,16 +1,17 @@
-import org.springframework.stereotype.Controller
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.RequestMapping
+package com.libraryExample.bookApplication
 
+import com.libraryExample.bookApplication.dtos.LoginDTO
+import com.libraryExample.bookApplication.dtos.RegisterDTO
+import org.springframework.stereotype.Controller
+import org.springframework.ui.Model
+import org.springframework.web.bind.annotation.GetMapping
 @Controller
 class WebController {
 
-    @RequestMapping(value = ["/"])
-    fun index(): String {
-        return "register"
-    }
-    @RequestMapping(value = ["/login"])
-    fun login(): String {
-        return "login"
+    @GetMapping("/")
+    fun index(model: Model): String {
+        model.addAttribute("registerDTO", RegisterDTO())
+        model.addAttribute("loginDTO", LoginDTO())
+        return "index"
     }
 }

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Book Application</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+<h1>Welcome to the Book Application</h1>
+
+<h2>Register</h2>
+<form id="registerForm" th:action="@{/api/register}" method="post">
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" required><br><br>
+
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" required><br><br>
+
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" required><br><br>
+
+    <input type="submit" value="Register">
+</form>
+
+<h2>Login</h2>
+<form id="loginForm" th:action="@{/api/login}" method="post">
+    <label for="loginEmail">Email:</label>
+    <input type="email" id="loginEmail" name="email" required><br><br>
+
+    <label for="loginPassword">Password:</label>
+    <input type="password" id="loginPassword" name="password" required><br><br>
+
+    <input type="submit" value="Login">
+</form>
+
+<script>
+    // Register form submission
+    $("#registerForm").submit(function(event) {
+        event.preventDefault();
+
+        var name = $("#name").val();
+        var email = $("#email").val();
+        var password = $("#password").val();
+
+        var registerData = {
+            name: name,
+            email: email,
+            password: password
+        };
+
+        $.ajax({
+            url: $(this).attr("action"),
+            type: $(this).attr("method"),
+            contentType: "application/json",
+            data: JSON.stringify(registerData),
+            success: function(response) {
+                alert("Registration successful!");
+            },
+            error: function(error) {
+                alert("Registration failed: " + error.responseJSON.message);
+            }
+        });
+    });
+
+    // Login form submission
+    $("#loginForm").submit(function(event) {
+        event.preventDefault();
+
+        var email = $("#loginEmail").val();
+        var password = $("#loginPassword").val();
+
+        var loginData = {
+            email: email,
+            password: password
+        };
+
+        $.ajax({
+            url: $(this).attr("action"),
+            type: $(this).attr("method"),
+            contentType: "application/json",
+            data: JSON.stringify(loginData),
+            success: function(response) {
+                alert("Login successful!");
+            },
+            error: function(error) {
+                alert("Login failed: " + error.responseJSON.message);
+            }
+        });
+    });
+</script>
+</body>
+</html>
