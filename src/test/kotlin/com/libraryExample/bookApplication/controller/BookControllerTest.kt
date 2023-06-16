@@ -8,13 +8,16 @@ import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.http.MediaType
 import org.springframework.test.web.servlet.*
+import java.time.LocalDate
 
 @SpringBootTest
 @AutoConfigureMockMvc
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 class BookControllerTest @Autowired constructor(
     val mockMvc: MockMvc, val objectMapper: ObjectMapper
 ) {
@@ -36,7 +39,6 @@ class BookControllerTest @Autowired constructor(
                 }
             }
         }
-
     }
 
     @Nested
@@ -83,7 +85,15 @@ class BookControllerTest @Autowired constructor(
             val title = "The Great Gatsby"
             val author = "F. Scott Fitzgerald"
             val review = "A masterpiece of American literature"
-            val newBook = Book(id = id, title = title, author = author, review = review)
+            val publishedDate = LocalDate.of(1925, 4, 10).toString()
+            val newBook = Book().apply {
+                this.id = id
+                this.title = title
+                this.author = author
+                this.review = review
+                this.publishedDate = publishedDate
+                this.coverImage = null
+            }
 
             // when
             val performPost = mockMvc.post("/api/books") {
@@ -108,7 +118,14 @@ class BookControllerTest @Autowired constructor(
         @Test
         fun `should return BAD REQUEST if book with given id already exist`() {
             // given
-            val invalidBook = Book(id = 1, title = "The Hobbit", author = "J.R.R. Tolkien", review = "A great book")
+            val invalidBook = Book().apply {
+                id = 1
+                title = "The Hobbit"
+                author = "J.R.R. Tolkien"
+                review = "A great book"
+                publishedDate = LocalDate.of(1937, 9, 21).toString()
+                coverImage = null
+            }
 
             // when
             val performPost = mockMvc.post("/api/books") {
@@ -132,7 +149,14 @@ class BookControllerTest @Autowired constructor(
         fun `should update the book with the given id`() {
             // given
             val id = 1
-            val updatedBook = Book(id = id, title = "The Hobbit", author = "J.R.R. Tolkien", review = "A great book")
+            val updatedBook = Book().apply {
+                this.id = id
+                title = "The Hobbit"
+                author = "J.R.R. Tolkien"
+                review = "A great book"
+                publishedDate = LocalDate.of(1937, 9, 21).toString()
+                coverImage = null
+            }
 
             // when
             val performPatchRequest = mockMvc.patch(baseUrl) {
@@ -158,7 +182,14 @@ class BookControllerTest @Autowired constructor(
         fun `should return NOT FOUND if the given id does not exist`() {
             // given
             val id = 999
-            val updatedBook = Book(id = id, title = "The Hobbit", author = "J.R.R. Tolkien", review = "A great book")
+            val updatedBook = Book().apply {
+                this.id = id
+                title = "The Hobbit"
+                author = "J.R.R. Tolkien"
+                review = "A great book"
+                publishedDate = LocalDate.of(1937, 9, 21).toString()
+                coverImage = null
+            }
 
             // when
             val performPatchRequest = mockMvc.patch(baseUrl) {

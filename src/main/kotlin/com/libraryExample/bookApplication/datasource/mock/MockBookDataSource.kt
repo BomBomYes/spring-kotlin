@@ -3,14 +3,36 @@ package com.libraryExample.bookApplication.datasource.mock
 import com.libraryExample.bookApplication.datasource.BookDataSource
 import com.libraryExample.bookApplication.model.Book
 import org.springframework.stereotype.Repository
+import java.time.LocalDate
 
 @Repository
 class MockBookDataSource : BookDataSource {
 
     val books = mutableListOf(
-        Book(1, "The Hobbit", "J.R.R. Tolkien", "A great book about a hobbit"),
-        Book(2, "The Fellowship of the Ring", "J.R.R. Tolkien", "A great book about a fellowship"),
-        Book(3, "The Two Towers", "J.R.R. Tolkien", "A great book about two towers"),
+        Book().apply {
+            id = 1
+            title = "The Hobbit"
+            author = "J.R.R. Tolkien"
+            review = "A great book about a hobbit"
+            publishedDate = LocalDate.of(1937, 9, 21).toString()
+            coverImage = null
+        },
+        Book().apply {
+            id = 2
+            title = "The Fellowship of the Ring"
+            author = "J.R.R. Tolkien"
+            review = "A great book about a fellowship"
+            publishedDate = LocalDate.of(1954, 7, 29).toString()
+            coverImage = null
+        },
+        Book().apply {
+            id = 3
+            title = "The Two Towers"
+            author = "J.R.R. Tolkien"
+            review = "A great book about two towers"
+            publishedDate = LocalDate.of(1954, 11, 11).toString()
+            coverImage = null
+        },
     )
 
     override fun retrieveBooks(): Collection<Book> = books
