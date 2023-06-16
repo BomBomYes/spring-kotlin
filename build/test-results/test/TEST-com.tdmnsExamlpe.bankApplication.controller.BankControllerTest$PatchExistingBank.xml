@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="PATCH /api/banks" tests="2" skipped="0" failures="0" errors="0" timestamp="2023-01-07T14:59:26" hostname="Mac-Studio-Oleg" time="0.009">
+  <properties/>
+  <testcase name="should update an existing bank()" classname="com.tdmnsExamlpe.bankApplication.controller.BankControllerTest$PatchExistingBank" time="0.005"/>
+  <testcase name="should return BAD REQUEST if no bank with given account number exist()" classname="com.tdmnsExamlpe.bankApplication.controller.BankControllerTest$PatchExistingBank" time="0.004"/>
+  <system-out><![CDATA[2023-01-07T21:59:26.718+07:00  INFO 8970 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.tdmnsExamlpe.bankApplication.controller.BankControllerTest$PatchExistingBank]: PatchExistingBank does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2023-01-07T21:59:26.719+07:00  INFO 8970 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.tdmnsExamlpe.bankApplication.BankApplication for test class com.tdmnsExamlpe.bankApplication.controller.BankControllerTest$PatchExistingBank
+
+MockHttpServletRequest:
+      HTTP Method = PATCH
+      Request URI = /api/banks
+       Parameters = {}
+          Headers = [Content-Type:"application/json;charset=UTF-8", Content-Length:"55"]
+             Body = {"accountNumber":"PQ03","trust":1.0,"transactionFee":1}
+    Session Attrs = {}
+
+Handler:
+             Type = com.tdmnsExamlpe.bankApplication.controller.BankController
+           Method = com.tdmnsExamlpe.bankApplication.controller.BankController#updateBank(Bank)
+
+Async:
+    Async started = false
+     Async result = null
+
+Resolved Exception:
+             Type = null
+
+ModelAndView:
+        View name = null
+             View = null
+            Model = null
+
+FlashMap:
+       Attributes = null
+
+MockHttpServletResponse:
+           Status = 200
+    Error message = null
+          Headers = [Content-Type:"application/json"]
+     Content type = application/json
+             Body = {"accountNumber":"PQ03","trust":1.0,"transactionFee":1}
+    Forwarded URL = null
+   Redirected URL = null
+          Cookies = []
+
+MockHttpServletRequest:
+      HTTP Method = PATCH
+      Request URI = /api/banks
+       Parameters = {}
+          Headers = [Content-Type:"application/json;charset=UTF-8", Content-Length:"65"]
+             Body = {"accountNumber":"does_not_exist","trust":1.0,"transactionFee":1}
+    Session Attrs = {}
+
+Handler:
+             Type = com.tdmnsExamlpe.bankApplication.controller.BankController
+           Method = com.tdmnsExamlpe.bankApplication.controller.BankController#updateBank(Bank)
+
+Async:
+    Async started = false
+     Async result = null
+
+Resolved Exception:
+             Type = java.util.NoSuchElementException
+
+ModelAndView:
+        View name = null
+             View = null
+            Model = null
+
+FlashMap:
+       Attributes = null
+
+MockHttpServletResponse:
+           Status = 404
+    Error message = null
+          Headers = [Content-Type:"text/plain;charset=UTF-8", Content-Length:"56"]
+     Content type = text/plain;charset=UTF-8
+             Body = Could not find a bank with account number does_not_exist
+    Forwarded URL = null
+   Redirected URL = null
+          Cookies = []
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
