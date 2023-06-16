@@ -11,7 +11,6 @@ import io.jsonwebtoken.security.Keys
 import jakarta.servlet.http.Cookie
 import jakarta.servlet.http.HttpServletResponse
 import org.springframework.http.ResponseEntity
-import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.*
 import java.util.*
 import javax.crypto.SecretKey
@@ -19,7 +18,6 @@ import javax.crypto.SecretKey
 @RestController
 @RequestMapping("api")
 class AuthController(private val service: UserService) {
-
 
     @PostMapping("register")
     fun register(@RequestBody body: RegisterDTO): ResponseEntity<User> {
