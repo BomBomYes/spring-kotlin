@@ -52,6 +52,4 @@ class AuthController(private val service: UserService) {
 
         return ResponseEntity.ok(Message("Logged in"))
     }
-
-
 }

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Books</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-lite/1.4.2/material.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/material-components-web@13.0.0/dist/material-components-web.min.css">
+    <style>
+        .card {
+            width: 300px;
+            margin: 20px;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            transition: 0.3s;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+        }
+
+        .card-body {
+            padding: 16px;
+        }
+
+        .card-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .card-text {
+            font-size: 16px;
+            color: #555;
+            margin-bottom: 16px;
+        }
+
+        .card-date {
+            font-size: 14px;
+            color: #888;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Books</h1>
+    <div class="mdl-grid">
+        <div th:each="book : ${books}" class="mdl-cell mdl-cell--4-col">
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="card-title" th:text="${book.title}">Book Title</h2>
+                    <p class="card-text" th:text="${book.author}">Author Name</p>
+                    <p class="card-date" th:text="${book.publishedDate}">Published Date</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/material-design-lite/1.4.2/material.min.js"></script>
+</body>
+</html>

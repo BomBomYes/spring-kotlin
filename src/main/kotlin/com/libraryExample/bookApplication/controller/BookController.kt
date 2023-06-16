@@ -1,14 +1,14 @@
 package com.libraryExample.bookApplication.controller
 
-
 import com.libraryExample.bookApplication.model.Book
 import com.libraryExample.bookApplication.service.BookService
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
+import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.*
 
 @RestController
-@RequestMapping("/api/books")
+@RequestMapping("api")
 class BookController(private val service: BookService) {
 
     @ExceptionHandler(NoSuchElementException::class)
@@ -19,11 +19,11 @@ class BookController(private val service: BookService) {
     fun handleBadRequest(e: IllegalArgumentException): ResponseEntity<String> =
         ResponseEntity(e.message, HttpStatus.BAD_REQUEST)
 
-    @GetMapping
-    fun getBooks(): Collection<Book> = service.getBooks()
+    @GetMapping("/books")
+    fun getBooks(model: Model): List<Book> = service.getBooks()
 
     @GetMapping("/{id}")
-    fun getBook(@PathVariable id: Int): Book = service.getBook(id)
+    fun getBook(@PathVariable id: Int): Book = service.getBook(id.toLong())
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
@@ -34,5 +34,5 @@ class BookController(private val service: BookService) {
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    fun deleteBook(@PathVariable id: Int): Unit = service.deleteBook(id)
+    fun deleteBook(@PathVariable id: Int): Unit = service.deleteBook(id.toLong())
 }
