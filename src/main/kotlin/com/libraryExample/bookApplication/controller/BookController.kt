@@ -3,9 +3,8 @@ package com.libraryExample.bookApplication.controller
 import com.libraryExample.bookApplication.model.Book
 import com.libraryExample.bookApplication.service.BookService
 import org.springframework.core.io.InputStreamResource
-import org.springframework.http.HttpStatus
-import org.springframework.http.MediaType
-import org.springframework.http.ResponseEntity
+import org.springframework.http.*
+import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.multipart.MultipartFile
@@ -24,10 +23,12 @@ class BookController(private val service: BookService) {
     fun handleBadRequest(e: IllegalArgumentException): ResponseEntity<String> =
         ResponseEntity(e.message, HttpStatus.BAD_REQUEST)
 
+
+    @PreAuthorize("isAuthenticated()")
     @GetMapping("/books")
     fun getBooks(model: Model): List<Book> = service.getBooks()
 
-    @GetMapping("/{id}")
+    @GetMapping("/books/{id}")
     fun getBook(@PathVariable id: Int): Book = service.getBook(id.toLong())
 
     @PostMapping("/books/add")
@@ -54,11 +55,44 @@ class BookController(private val service: BookService) {
     fun getCoverImage(@PathVariable id: Int): ResponseEntity<InputStreamResource> {
         val book = service.getBook(id.toLong())
         val img = ByteArrayInputStream(book.coverImage)
-        return ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG).body(InputStreamResource(img))
+        val headers = HttpHeaders()
+        headers.cacheControl = CacheControl.noCache().headerValue
+        return ResponseEntity.ok().headers(headers).contentType(MediaType.IMAGE_JPEG).body(InputStreamResource(img))
     }
 
-    @PatchMapping
-    fun updateBook(@RequestBody book: Book): Book = service.updateBook(book)
+
+    @DeleteMapping("/books/{id}")
+    fun deleteBook(@PathVariable id: Long) {
+        service.deleteBook(id)
+    }
+    @PutMapping("/books/edit/{id}")
+    fun updateBook(@PathVariable id: Long,
+                   @RequestParam("title") title: String,
+                   @RequestParam("author") author: String,
+                   @RequestParam("review") review: String,
+                   @RequestParam("publishedDate") publishedDate: String,
+                   @RequestParam("coverImage") coverImage: MultipartFile): Book {
+
+        val book = service.getBook(id)
+
+        book.title = title
+        book.author = author
+        book.review = review
+        book.publishedDate = publishedDate
+
+        if (!coverImage.isEmpty) {
+            coverImage.inputStream.use {
+                book.coverImage = it.readAllBytes()
+            }
+        }
+
+        return service.updateBook(book)
+    }
+
+
+
+    @PatchMapping("/books/{id}")
+    fun patchBook(@PathVariable id: Long, @RequestBody book: Book): Book = service.updateBook(book)
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)

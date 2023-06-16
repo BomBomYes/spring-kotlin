@@ -25,11 +25,4 @@ class Book {
     @Lob
     @Column
     var coverImage: ByteArray? = null
-        get() {
-            return field
-        }
-        set(value) {
-            field = value
-        }
-
 }
