@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.tdmnsExamlpe.bankApplication.service.BankServiceTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2023-01-07T14:59:27" hostname="Mac-Studio-Oleg" time="0.079">
+  <properties/>
+  <testcase name="should call its data source to retrieve banks()" classname="com.tdmnsExamlpe.bankApplication.service.BankServiceTest" time="0.079"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
